@@ -1,19 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register!{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/login.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="login">
+        <h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_start(registrationForm) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        <div class="error">{{ form_errors(registrationForm) }}</div>
+
+        <label>
+            {{ form_widget(registrationForm.email, {
+                'attr': {'placeholder': 'Email', 'required': 'required'}
+            }) }}
+        </label>
+
+        <label>
+            {{ form_widget(registrationForm.plainPassword, {
+                'attr': {'placeholder': 'Password', 'required': 'required'}
+            }) }}
+        </label>
+
+        <label>
+            {{ form_widget(registrationForm.agreeTerms) }}
+            {{ form_label(registrationForm.agreeTerms, 'Agree to terms') }}
+        </label>
+
+        <a href="{{ path('app_login') }}">Already have an account? Log in!</a>
+
+        {{ form_widget(registrationForm._token) }}
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Register</button>
+
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}
